@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,33 +28,38 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        val image = painterResource(id = R.drawable.ic_task_completed)
-                        Image(
-                            painter = image,
-                            contentDescription = null,
-                        )
-                        Text(
-                            text = "All tasks completed",
-                            fontSize = 24.sp,
-                            modifier = Modifier
-                                .padding(top = 24.dp, bottom = 8.dp)
-                        )
-                        Text(
-                            text = "All tasks completed",
-                            fontSize = 16.sp,
-                        )
-                    }
+                    TaskCompletedScreen()
                 }
             }
         }
     }
 }
-
+@Preview(showBackground = true)
+@Composable
+fun TaskCompletedScreen(){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val image = painterResource(id = R.drawable.ic_task_completed)
+        Image(
+            painter = image,
+            contentDescription = null,
+        )
+        Text(
+            text = "All tasks completed",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .padding(top = 24.dp, bottom = 8.dp)
+        )
+        Text(
+            text = "All tasks completed",
+            fontSize = 16.sp,
+        )
+    }
+}
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
