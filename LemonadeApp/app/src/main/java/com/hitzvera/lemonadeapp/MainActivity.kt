@@ -3,10 +3,12 @@ package com.hitzvera.lemonadeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -31,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainContent()
+                    LemonApp()
                 }
             }
         }
@@ -40,62 +42,130 @@ class MainActivity : ComponentActivity() {
 
 
 
-@Preview(showBackground = true)
 @Composable
-fun MainContent(){
-    Column(
+fun LemonApp() {
+
+    // Current step the app is displaying (remember allows the state to be retained
+    // across recompositions).
+    var currentStep by remember { mutableStateOf(1) }
+
+    // Number of times the lemon needs to be squeezed to turn into a glass of lemonade
+    var squeezeCount by remember { mutableStateOf(0) }
+
+    Surface(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        color = MaterialTheme.colors.background
     ) {
-        var currentStep by remember { mutableStateOf(1) }
-        var text by remember { mutableStateOf("") }
-        var imageResource by remember { mutableStateOf(-1)}
-        var numberOfSqueze by remember { mutableStateOf(2)}
-        var checkSqueze by remember { mutableStateOf(1)}
-        when(currentStep){
+        when (currentStep) {
             1 -> {
-                text = stringResource(id = R.string.lemon_tree)
-                imageResource = R.drawable.lemon_tree
+                // Display lemon tree image and ask user to pick a lemon from the tree
+                LemonTextAndImage(
+                    textLabelResourceId = R.string.lemon_select,
+                    drawableResourceId = R.drawable.lemon_tree,
+                    contentDescriptionResourceId = R.string.lemon_tree_content_description,
+                    onImageClick = {
+                        // Update to next step
+                        currentStep = 2
+                        // Each time a lemon is picked from the tree, get a new random number
+                        // between 2 and 4 (inclusive) for the number of times the lemon needs
+                        // to be squeezed to turn into lemonade
+                        squeezeCount = (2..4).random()
+                    }
+                )
             }
             2 -> {
-                text = stringResource(id = R.string.lemon)
-                imageResource = R.drawable.lemon_squeeze
+                // Display lemon image and ask user to squeeze the lemon
+                LemonTextAndImage(
+                    textLabelResourceId = R.string.lemon_squeeze,
+                    drawableResourceId = R.drawable.lemon_squeeze,
+                    contentDescriptionResourceId = R.string.lemon_content_description,
+                    onImageClick = {
+                        // Decrease the squeeze count by 1 for each click the user performs
+                        squeezeCount--
+                        // When we're done squeezing the lemon, move to the next step
+                        if (squeezeCount == 0) {
+                            currentStep = 3
+                        }
+                    }
+                )
             }
             3 -> {
-                text = stringResource(id = R.string.glass_of_lemonade)
-                imageResource = R.drawable.lemon_drink
+                // Display glass of lemonade image and ask user to drink the lemonade
+                LemonTextAndImage(
+                    textLabelResourceId = R.string.lemon_drink,
+                    drawableResourceId = R.drawable.lemon_drink,
+                    contentDescriptionResourceId = R.string.lemonade_content_description,
+                    onImageClick = {
+                        // Update to next step
+                        currentStep = 4
+                    }
+                )
             }
             4 -> {
-                text = stringResource(id = R.string.empty_glass)
-                imageResource = R.drawable.lemon_restart
-            }
-            else -> {
-                currentStep = 1
+                // Display empty glass image and ask user to start again
+                LemonTextAndImage(
+                    textLabelResourceId = R.string.lemon_empty_glass,
+                    drawableResourceId = R.drawable.lemon_restart,
+                    contentDescriptionResourceId = R.string.empty_glass_content_description,
+                    onImageClick = {
+                        // Back to starting step
+                        currentStep = 1
+                    }
+                )
             }
         }
-        Text(text = text, fontSize = 18.sp)
-        Spacer(Modifier.height(16.dp))
-        Image(
-            painter = painterResource(id = imageResource),
-            contentDescription = "lemon tree",
-            modifier = Modifier
-                .border(2.dp, Color(105, 205, 216, 255))
-                .padding(8.dp)
-                .clickable {
-                    if(currentStep == 2){
-                        numberOfSqueze = (2..4).random()
-                        checkSqueze = 1
-                        if(checkSqueze <= numberOfSqueze){
-                            checkSqueze++
-                        } else {
-                            currentStep++
-                        }
-                    } else {
-                        currentStep++
-                    }
+    }
+}
 
-                }
-            )
+/**
+ * Composable that displays a text label above an image that is clickable.
+ *
+ * @param textLabelResourceId is the resource ID for the text string to display
+ * @param drawableResourceId is the resource ID for the image drawable to display below the text
+ * @param contentDescriptionResourceId is the resource ID for the string to use as the content
+ * description for the image
+ * @param onImageClick will be called when the user clicks the image
+ * @param modifier modifiers to set to this composable
+ */
+@Composable
+fun LemonTextAndImage(
+    textLabelResourceId: Int,
+    drawableResourceId: Int,
+    contentDescriptionResourceId: Int,
+    onImageClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxSize()
+    ) {
+        Text(
+            text = stringResource(textLabelResourceId),
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Image(
+            painter = painterResource(drawableResourceId),
+            contentDescription = stringResource(contentDescriptionResourceId),
+            modifier = Modifier
+                .wrapContentSize()
+                .clickable(
+                    onClick = onImageClick
+                )
+                .border(
+                    BorderStroke(2.dp, Color(105, 205, 216)),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .padding(16.dp)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun LemonPreview() {
+    LemonadeAppTheme() {
+        LemonApp()
     }
 }
