@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Superhero App</string>
+    <string name="hero1">Nick the Night and Day</string>
+    <string name="hero2">Reality Protector</string>
+    <string name="hero3">Andre the Giant</string>
+    <string name="hero4">Benjamin the Brave</string>
+    <string name="hero5">Magnificent Maru</string>
+    <string name="hero6">Mujahid the hero</string>
+
+    <string name="description1">Mobile developer hero</string>
+    <string name="description2">Knows well deisgn patter</string>
+    <string name="description3">can restructure with SOLID principle</string>
+    <string name="description4">Kotlin Master</string>
+    <string name="description5">Can handle cross platform</string>
+    <string name="description6">Can communicate well</string>
+</resources>
