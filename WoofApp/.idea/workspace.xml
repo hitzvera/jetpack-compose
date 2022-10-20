@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44f1b2b6-fc29-4948-bbe8-0e640d0fa9c7" name="Changes" comment="" />
+    <list default="true" id="44f1b2b6-fc29-4948-bbe8-0e640d0fa9c7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Thirtydaysapplication/app/src/main/java/com/hitzvera/thirtydaysapplication/model/Qoute.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Thirtydaysapplication/app/src/main/java/com/hitzvera/thirtydaysapplication/model/QouteDataSource.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Thirtydaysapplication/app/src/main/res/drawable/photo_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Thirtydaysapplication/app/src/main/res/drawable/photo_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Thirtydaysapplication/app/src/main/res/drawable/photo_3.jpg" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

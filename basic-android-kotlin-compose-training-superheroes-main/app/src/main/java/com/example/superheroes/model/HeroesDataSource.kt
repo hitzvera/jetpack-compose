@@ -18,6 +18,7 @@ package com.example.superheroes.model
 import com.example.superheroes.R
 
 object HeroesRepository {
+    val hid = 5
     val heroes = listOf(
         Hero(
             nameRes = R.string.hero1,

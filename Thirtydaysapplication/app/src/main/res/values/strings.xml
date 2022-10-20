@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Thirty days application</string>
+
+    <!--   title -->
+    <string name="qoute_1">dont forget to exercise</string>
+    <string name="qoute_2">keep hydrate your body</string>
+    <string name="qoute_3">learning regulary</string>
+
+<!--    description-->
+    <string name="desc_1">exersizing is an important point for a healthy body</string>
+    <string name="desc_2">stay hydrating makes your body more fresh and healthy</string>
+    <string name="desc_3">learning regulary makes your brain more sharp each day</string>
+
+    <!--    detial -->
+    <string name="detail_1">exersizing is an important point for a healthy body</string>
+    <string name="detail_2">stay hydrating makes your body more fresh and healthy</string>
+    <string name="detail_3">learning regulary makes your brain more sharp each day</string>
+</resources>
